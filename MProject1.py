@@ -18,12 +18,13 @@ from gazebo_msgs import msg
 from open_grip import open
 from close_grip import close
 from fetch import fetch
-from move_to import move_to_cube, move_to_bucket
+from move_to import move_to_cube, move_to_bucket, move_up
 
 def get_cube_seq(cubes):
     open()
-    move_to_cube(cubes.pose[2])
+    move_to_cube(cubes.pose[3])
     close()
+    move_up()
     move_to_bucket()
     open()
 
