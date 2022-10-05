@@ -39,7 +39,8 @@ if __name__ == '__main__':
         i = model_states.name.index("cube0")
         cubes = extract_by_name(model_states, starts_with="cube")
         bucket = extract_by_name(model_states, starts_with="bucket")[0]
-        
+
+        moveit_commander.roscpp_initialize(sys.argv)
         open()
         for cube in cubes:
             print('Attempting pickup of {}'.format(cube["name"]))
@@ -48,6 +49,9 @@ if __name__ == '__main__':
             time.sleep(1)
             open()
             pass
+
+            # When finished shut down moveit_commander.
+        moveit_commander.roscpp_shutdown()
             
         # print(model_states.pose[i])
         # cubes = fetch()

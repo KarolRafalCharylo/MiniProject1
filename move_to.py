@@ -14,11 +14,11 @@ import roslib
 roslib.load_manifest('hello_ros')
 
 
-def move_to_cube(objective):
+def move_to(objective):
     # BEGIN_TUTORIAL
     # First initialize moveit_commander and rospy.
     print("============ Starting tutorial setup")
-    moveit_commander.roscpp_initialize(sys.argv)
+    
     #rospy.init_node('move_group_python_interface_tutorial', anonymous=True)
 
     robot = moveit_commander.RobotCommander()
@@ -32,27 +32,32 @@ def move_to_cube(objective):
         '/move_group/display_planned_path',
         moveit_msgs.msg.DisplayTrajectory)
 
-    print("============ Starting tutorial ")
-    # We can get the name of the reference frame for this robot
-    print("============ Reference frame: %s" % group.get_planning_frame())
-    # We can also print(the name of the end-effector link for this group)
-    print("============ End effector frame: %s" %
-          group.get_end_effector_link())
-    # We can get a list of all the groups in the robot
-    print("============ Robot Groups:")
-    print(robot.get_group_names())
-    # Sometimes for debugging it is useful to print(the entire state of the)
-    # robot.
-    print("============ Printing robot state")
-    print(robot.get_current_state())
-    print("============")
+    # print("============ Starting tutorial ")
+    # # We can get the name of the reference frame for this robot
+    # print("============ Reference frame: %s" % group.get_planning_frame())
+    # # We can also print(the name of the end-effector link for this group)
+    # print("============ End effector frame: %s" %
+    #       group.get_end_effector_link())
+    # # We can get a list of all the groups in the robot
+    # print("============ Robot Groups:")
+    # print(robot.get_group_names())
+    # # Sometimes for debugging it is useful to print(the entire state of the)
+    # # robot.
+    # print("============ Printing robot state")
+    # print(robot.get_current_state())
+    # print("============")
 
     # Bucket avoidance
     p = geometry_msgs.msg.PoseStamped()
     p.header.frame_id = robot.get_planning_frame()
-    p.pose.position.x = 0.5
-    p.pose.position.y = -0.23
-    p.pose.position.z = 0.74
+    p.pose.position.x = 0.581763
+    p.pose.position.y = -0.207290
+    p.pose.position.z = 0.9
+    conv_quat = tf_conversions.transformations.quaternion_from_euler(-0.071061, -0.000003, 0.785914)
+    p.pose.orientation.x = conv_quat[0]
+    p.pose.orientation.y = conv_quat[1]
+    p.pose.orientation.z = conv_quat[2]
+    p.pose.orientation.w = conv_quat[3]
     scene.add_box("bucket", p, (0.2, 0.2, 0.2))
 
     # Let's setup the planner
@@ -72,7 +77,7 @@ def move_to_cube(objective):
     pose_goal.position.x = objective.position.x
     pose_goal.position.y = objective.position.y
     pose_goal.position.z = 1.2
-    print(pose_goal)
+    # print(pose_goal)
     group.set_pose_target(pose_goal)
 
     # Now, we call the planner to compute the plan
@@ -104,12 +109,7 @@ def move_to_cube(objective):
     group.go(wait=True)
     rospy.sleep(2.)
 
-    # When finished shut down moveit_commander.
-    moveit_commander.roscpp_shutdown()
 
-    # END_TUTORIAL
-    print("============ STOPPING")
-    R = rospy.Rate(10)
 
 
 def move_to_bucket():
