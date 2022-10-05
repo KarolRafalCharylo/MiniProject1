@@ -28,26 +28,31 @@ if __name__ == '__main__':
         model_states = fetch_model_states()
         cubes = extract_by_name(model_states, starts_with="cube")
         bucket = extract_by_name(model_states, starts_with="bucket")[0]
-        bucket["pose"].position.z = 1.2
-        bucket = bucket["pose"]
+        bucket[1].position.z = 1.3
+        bucket = bucket[1]
 
         moveit_commander.roscpp_initialize(sys.argv)
         for cube in cubes:
-            print('Attempting pickup of {}'.format(cube["name"]))
+            print('Attempting pickup of {}'.format(cube[0]))
             open()
             rospy.sleep(1)
             
-            above_cube = cube["pose"]
-            above_cube.position.z = 1.2
+            above_cube = cube[1]
+            above_cube.position.z = 1.1
 
-            the_cube = cube["pose"]
-            the_cube.position.z = the_cube.position.z + 0.2
+
 
             move_to_joint(above_cube)
+            the_cube = cube[1]
+            the_cube.position.z = 0.93
             move_to_cartesian(the_cube)
             close()
             rospy.sleep(1)
-            move_to_cartesian(above_cube, bucket)
+            above_cube = cube[1]
+            above_cube.position.z = 1.3
+            move_to_cartesian(above_cube)
+            move_to_cartesian(bucket)
+            #move_to_cartesian(above_cube, bucket)
             open()
             time.sleep(1)
 

@@ -52,13 +52,13 @@ def move_to_joint(objective):
     p.header.frame_id = robot.get_planning_frame()
     p.pose.position.x = 0.581763
     p.pose.position.y = -0.207290
-    p.pose.position.z = 0.9
+    p.pose.position.z = 0.7
     conv_quat = tf_conversions.transformations.quaternion_from_euler(-0.071061, -0.000003, 0.785914)
     p.pose.orientation.x = conv_quat[0]
     p.pose.orientation.y = conv_quat[1]
     p.pose.orientation.z = conv_quat[2]
     p.pose.orientation.w = conv_quat[3]
-    scene.add_box("bucket", p, (0.2, 0.2, 0.2))
+    scene.add_box("bucket", p, (0.3, 0.3, 0.3))
 
     # Let's setup the planner
     # group.set_planning_time(0.0)
@@ -77,7 +77,7 @@ def move_to_joint(objective):
     pose_goal.position.x = objective.position.x
     pose_goal.position.y = objective.position.y
     pose_goal.position.z = objective.position.z
-    # print(pose_goal)
+    #print(pose_goal)
     group.set_pose_target(pose_goal)
 
     # Now, we call the planner to compute the plan
@@ -107,7 +107,7 @@ def move_to_joint(objective):
 
     # Moving to a pose goal
     group.go(wait=True)
-    rospy.sleep(2.)
+    rospy.sleep(1.)
 
 
 
@@ -143,15 +143,14 @@ def move_to_cartesian(*objectives):
     for objective in objectives:
         pose_goal.orientation = geometry_msgs.msg.Quaternion(
             *tf_conversions.transformations.quaternion_from_euler(0., -math.pi/2, 0.))
-        waypoints.append(pose_goal)
         pose_goal.position.x = objective.position.x
         pose_goal.position.y = objective.position.y
         pose_goal.position.z = objective.position.z
-        # print(pose_goal)
+        print(pose_goal)
 
         # Create waypoints
         waypoints.append(pose_goal)
-
+    print(waypoints)
     # createcartesian  plan
     (planbucket, fraction) = group.compute_cartesian_path(
         waypoints,   # waypoints to follow
@@ -181,8 +180,5 @@ def move_to_cartesian(*objectives):
 
     # Moving to a pose goal
     group.execute(planbucket, wait=True)
-    rospy.sleep(4.)
-
-    R = rospy.Rate(10)
-
+    rospy.sleep(1.)
 
