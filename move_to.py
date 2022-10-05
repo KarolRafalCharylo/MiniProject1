@@ -36,7 +36,8 @@ def move_to_cube(objective):
     # We can get the name of the reference frame for this robot
     print("============ Reference frame: %s" % group.get_planning_frame())
     # We can also print(the name of the end-effector link for this group)
-    print("============ End effector frame: %s" % group.get_end_effector_link())
+    print("============ End effector frame: %s" %
+          group.get_end_effector_link())
     # We can get a list of all the groups in the robot
     print("============ Robot Groups:")
     print(robot.get_group_names())
@@ -133,7 +134,8 @@ def move_to_bucket():
     # We can get the name of the reference frame for this robot
     print("============ Reference frame: %s" % group.get_planning_frame())
     # We can also print(the name of the end-effector link for this group)
-    print("============ End effector frame: %s" % group.get_end_effector_link())
+    print("============ End effector frame: %s" %
+          group.get_end_effector_link())
     # We can get a list of all the groups in the robot
     print("============ Robot Groups:")
     print(robot.get_group_names())
@@ -233,7 +235,8 @@ def move_up():
     # We can get the name of the reference frame for this robot
     print("============ Reference frame: %s" % group.get_planning_frame())
     # We can also print(the name of the end-effector link for this group)
-    print("============ End effector frame: %s" % group.get_end_effector_link())
+    print("============ End effector frame: %s" %
+          group.get_end_effector_link())
     # We can get a list of all the groups in the robot
     print("============ Robot Groups:")
     print(robot.get_group_names())

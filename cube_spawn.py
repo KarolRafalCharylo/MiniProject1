@@ -30,12 +30,12 @@ if __name__ == '__main__':
         bin_x = random.uniform(0, 0.5)
         item_name = "cube{}".format(num)
         print("Spawning model:%s", item_name)
-        item_pose = Pose(Point(x=bin_x, y=bin_y,    z=1),   orient)
+        item_pose = Pose(Point(x=bin_x, y=bin_y, z=1), orient)
         spawn_model(item_name, product_xml, "", item_pose, "world")
 
     with open("/home/dkenez/catkin_ws/src/hello_ros/urdf/bucket.urdf", "r") as f:
         product_xml = f.read()
 
-    item_pose = Pose(Point(x=0.53, y=-0.23,    z=0.78),   orient)
+    item_pose = Pose(Point(x=0.53, y=-0.23, z=0.78), orient)
     print("Spawning model:%s", "bucket")
     spawn_model("bucket", product_xml, "", item_pose, "world")

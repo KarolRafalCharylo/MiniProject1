@@ -11,6 +11,7 @@ import rospy
 import copy
 import sys
 import roslib
+import time
 
 from fetch_model_states import fetch_model_states
 from extract_by_name import extract_by_name
@@ -38,7 +39,16 @@ if __name__ == '__main__':
         i = model_states.name.index("cube0")
         cubes = extract_by_name(model_states, starts_with="cube")
         bucket = extract_by_name(model_states, starts_with="bucket")[0]
-
+        
+        open()
+        for cube in cubes:
+            print('Attempting pickup of {}'.format(cube["name"]))
+            move_to_cube(cube["pose"])
+            close()
+            time.sleep(1)
+            open()
+            pass
+            
         # print(model_states.pose[i])
         # cubes = fetch()
         # get_cube_seq(cubes)
