@@ -8,7 +8,7 @@ git clone https://github.com/KarolRafalCharylo/MiniProject1
 
 ## Structure
 
-The main file is `MProject1.py`, this is the script to be executed with `ros_run`. The idea is that every functional part of the simulation is separated into it's own self contained file such as `fetch.py`, `move_to.py`, etc. These files contain the logic needed for that specific part of the simulation. This also helps with collaboration as we will not be working in the same file, make potential issues with git less likely.
+The main file is `main.py`, this is the script to be executed with `ros_run`. The idea is that every functional part of the simulation is separated into it's own self contained file such as `fetch.py`, `move_to.py`, etc. These files contain the logic needed for that specific part of the simulation. This also helps with collaboration as we will not be working in the same file, make potential issues with git less likely.
 
 
 ## The auto_copy watcher
