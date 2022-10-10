@@ -26,29 +26,39 @@ if __name__ == '__main__':
         rospy.init_node("miniproject1")
         
         model_states = fetch_model_states()
-        cubes = extract_by_name(model_states, starts_with="cube")
+        cubes = extract_by_name(model_states, starts_with="cube", reversed=True)
         bucket = extract_by_name(model_states, starts_with="bucket")[0]
         bucket[1].position.z = 1.3
         bucket = bucket[1]
 
         moveit_commander.roscpp_initialize(sys.argv)
-        for cube in cubes:
-            print('Attempting pickup of {}'.format(cube[0]))
+        for i in range(len(cubes)):
+            model_states = fetch_model_states()
+            cubes = extract_by_name(model_states, starts_with="cube", reversed=True)
+            print('Attempting pickup of {}'.format(cubes[i][0]))
             open()
             rospy.sleep(1)
             
-            above_cube = cube[1]
+            above_cube = cubes[i][1]
+            print("above_cube.position.z")
+            print(above_cube.position.z)
+            cube_pos_z = above_cube.position.z
+
             above_cube.position.z = 1.1
 
 
 
             move_to_joint(above_cube)
-            the_cube = cube[1]
-            the_cube.position.z = 0.93
+            the_cube = cubes[i][1]
+            print("old pos")
+            print(the_cube.position.z)
+            the_cube.position.z = cube_pos_z + 0.12
+            print("new pos")
+            print(the_cube.position.z)
             move_to_cartesian(the_cube)
             close()
             rospy.sleep(1)
-            above_cube = cube[1]
+            above_cube = cubes[i][1]
             above_cube.position.z = 1.3
             move_to_cartesian(above_cube)
             move_to_cartesian(bucket)
